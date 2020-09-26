@@ -1,16 +1,9 @@
-import mysql.connector
 from APIfooty import footy
 import datetime
+from dbkeys import *
 
 footy1 = footy()
 starter_coins = 100
-
-mydb = mysql.connector.connect(
-        host = "192.168.0.121",
-        user = "neelak",
-        password = "root",
-        database="matchbot"
-    )
 
 class db():
     global footy1
@@ -175,8 +168,8 @@ class db():
         return(result, fixtures)
 
 
-db1 = db()
+# db1 = db()
 # db1.update_results()
-db1.update_odds()
+# db1.update_odds()
 # db1.insert_db()
 # db1.next_match(3)
