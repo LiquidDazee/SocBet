@@ -111,7 +111,7 @@ async def show_current_bets(ctx):
         match_name = fixtures[i][0][0] + " vs " + fixtures[i][0][1]
         deets = c_bets[i][2],c_bets[i][3], c_bets[i][5]
         embed.add_field(name = "Match Name", value = match_name, inline = True)
-        embed.add_field(name = "Details", value = "Odds "+str(deets[0]) + "; Amount " + str(deets[1])+ "; Side " + str(deets[2]) + "; Potential winnings " + str(deets[0]*deets[1]), inline = True)
+        embed.add_field(name = "Details", value = "Odds "+str(deets[0]) + "; Amount " + str(deets[1])+ "; Side " + str(deets[2]) + "; Potential winnings " + str(int(deets[0]*deets[1])), inline = True)
         embed.add_field(name = '\u200b', value = '\u200b', inline= False)
     await ctx.send(embed = embed)
     await ctx.message.add_reaction(":python3:736715611492581429")
