@@ -1,6 +1,0 @@
-{
-    "python.pythonPath": ".bot/bin/python",
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-    "editor.formatOnPaste": false
-}
