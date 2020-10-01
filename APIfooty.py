@@ -87,6 +87,16 @@ class footy():
         # with open('temp2.txt', 'w') as d:
         #     d.write(results)
 
+    def update_ten_fixtures(self):
+        url = "https://v2.api-football.com/fixtures/league/%d/next/10" % (league_id)
+        response = requests.request("GET", url, headers=headers)
+
+        with open('fixtures.txt', 'w') as f:
+            f.write(response.txt)
+            parsed_json = json.loads(response.text)
+            results = parsed_json['api']['fixtures']
+            return results
+
 
 # footy1 = footy()
 # temp = footy1.update_fixtures_daily()

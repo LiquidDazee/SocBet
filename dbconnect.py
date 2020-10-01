@@ -167,8 +167,30 @@ class db():
         # print(fixtures)
         return(result, fixtures)
 
+    def update_fix_timings(self):
+        results = footy1.update_ten_fixtures()
+        mycursor = mydb.cursor()
+        mycursor.execute("SELECT fixture_id from v_next_matches LIMIT 10;")
+        fixtures = mycursor.fetchall()
+        # fixtures=[(1234,0), (1235,0), (1234,0)]
+        for i in range(len(fixtures)):
+            for j in range(len(results)):
+                if fixtures[i[0]] == results[j]['fixture_id']:
+                    m_starts = datetime.datetime.fromtimestamp(results[j]['event_timestamp']).strftime("%Y-%m-%d %H:%M:%S")
+                    mycursor.execute("UPDATE fixtures SET m_starts = %s WHERE fixture_id = %s" %(m_starts, fixtures[i[0]]))
+                    break
+        mydb.commit()
+
+    # def test(self):
+    #     mycursor = mydb.cursor()
+    #     mycursor.execute("SELECT fixture_id from v_next_matches LIMIT 10;")
+    #     fixtures = mycursor.fetchall()
+    #     print(fixtures)
+
+
 
 # db1 = db()
+# db1.test()
 # db1.update_results()
 # db1.update_odds()
 # db1.insert_db()
