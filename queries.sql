@@ -36,7 +36,7 @@ INSERT INTO bets VALUES (5, 9, 2, 10, 592155, 'H', 0);
 
 UPDATE fixtures SET home_evens = NULL WHERE isPostponed = 1;
 
-UPDATE bets SET successful = NULL WHERE bet_id = 2;
+UPDATE bets SET successful = NULL WHERE bet_id >= 39;
 
 SELECT COUNT(*) FROM bets WHERE user_id = '9' AND successful is NULL;
 
@@ -86,7 +86,7 @@ DROP TRIGGER update_amount;
 
 UPDATE fixtures SET result = null where fixture_id = '592155';
 
-UPDATE fixtures SET result = "H" where fixture_id = '592154';
+UPDATE fixtures SET result = "A" where fixture_id = '592161';
 
 UPDATE fixtures SET result = "H" where fixture_id = '592155';
 
@@ -94,15 +94,21 @@ UPDATE users SET coins = 100;
 
 DELETE FROM bets;
 
+DROP TRIGGER update_bets
+;
+
+
+delimiter $$
 CREATE TRIGGER update_bets AFTER UPDATE ON fixtures 
 FOR EACH ROW 
 	UPDATE bets
-    SET successful = CASE
+    SET successful = IF(NEW.result is NULL, NULL, CASE
 		WHEN bets.bet_on = NEW.result THEN 1
         ELSE 0
-        END
+        END)
     WHERE bets.fixture_id = NEW.fixture_id;
-    
+$$
+delimiter;
 CREATE TRIGGER update_amount AFTER UPDATE ON bets
 FOR EACH ROW
 	UPDATE users
