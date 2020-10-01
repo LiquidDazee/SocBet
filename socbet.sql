@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `matchbot` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `matchbot` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `matchbot`;
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
@@ -37,7 +37,7 @@ CREATE TABLE `bets` (
   KEY `fixture_id` (`fixture_id`),
   CONSTRAINT `bets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   CONSTRAINT `bets_ibfk_2` FOREIGN KEY (`fixture_id`) REFERENCES `fixtures` (`fixture_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -87,7 +87,7 @@ CREATE TABLE `fixtures` (
   `league_id` int DEFAULT NULL,
   `isPostponed` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`fixture_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=592876 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=592876 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -132,7 +132,7 @@ CREATE TABLE `users` (
   `username` varchar(30) DEFAULT NULL,
   `coins` int DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +185,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_next_matches` AS select `a`.`fixture_id` AS `fixture_id`,`a`.`home` AS `home`,`a`.`home_evens` AS `home_evens`,`a`.`away` AS `away`,`a`.`away_evens` AS `away_evens`,`a`.`draw_evens` AS `draw_evens`,`a`.`m_starts` AS `m_starts`,`a`.`m_ends` AS `m_ends`,`a`.`result` AS `result`,`a`.`league_id` AS `league_id`,`a`.`isPostponed` AS `isPostponed` from (`fixtures` `a` join (select `fixtures`.`fixture_id` AS `fixture_id`,min(str_to_date(`fixtures`.`m_starts`,'%Y-%m-%d')) AS `next_fixture_date` from `fixtures` where (`fixtures`.`m_starts` > now()) group by `fixtures`.`fixture_id`) `b` on(((`a`.`fixture_id` = `b`.`fixture_id`) and (str_to_date(`a`.`m_starts`,'%Y-%m-%d') = `b`.`next_fixture_date`)))) order by `a`.`m_starts` */;
