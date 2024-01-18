@@ -10,4 +10,4 @@ sb.nm (default = 1) - shows the next set of matches, with their timings and odds
 <img src='NextMatches.png'>
 
 sb.showbets - shows active bets of a user, with potential winnings.  
-<img src='ShowBets.png'>
+<img src='ShowBets.pn'>
